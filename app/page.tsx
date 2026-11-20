@@ -1,6 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import MenuScrollHint from "./menu-scroll-hint";
 import BannerEditorButton from "./banner-editor-button";
 import PopupEditorButton from "./popup-editor-button";
 import WhyChooseUsEditorButton from "./why-choose-us-editor-button";
@@ -9,60 +6,6 @@ import FacilitiesEditorButton from "./facilities-editor-button";
 import StatisticsEditorButton from "./statistics-editor-button";
 import StoriesNewsEditorButton from "./stories-news-editor-button";
 import AdmissionsCtaEditorButton from "./admissions-cta-editor-button";
-
-const navigationGroups = [
-  {
-    title: "Corporate",
-    items: [
-      ["Home", "home"],
-      ["About Us", "info"],
-      ["Pre-Primary", "people"],
-      ["Primary", "book"],
-      ["High School", "cap"],
-      ["Diversity", "group"],
-      ["Student Life", "leaf"],
-      ["Achievements", "trophy"],
-      ["Facilities", "building"],
-      ["Uniforms", "shirt"],
-      ["Gallery", "image"],
-      ["Admissions", "check"],
-      ["News & Events", "calendar"],
-      ["Magazine", "book"],
-      ["FAQs", "info"],
-      ["Admission Enquiry Section", "people"],
-      ["Privacy Policy", "info"],
-      ["Terms & Conditions", "book"],
-      ["Careers", "people"],
-    ],
-  },
-  {
-    title: "Branch",
-    items: [
-      ["Home", "home"],
-      ["About Us", "info"],
-      ["Pre-Primary", "people"],
-      ["Primary", "book"],
-      ["High School", "cap"],
-      ["Student Life", "leaf"],
-      ["Achievements", "trophy"],
-      ["Facilities", "building"],
-      ["Uniforms", "shirt"],
-      ["Gallery", "image"],
-      ["Admissions", "check"],
-      ["News & Events", "calendar"],
-      ["Magazine", "book"],
-      ["FAQs", "info"],
-      ["Admission Enquiry Section", "people"],
-      ["Privacy Policy", "info"],
-      ["Terms & Conditions", "book"],
-      ["Careers", "people"],
-    ],
-  },
-  {
-    title: "Careers Application",
-    items: [["Applications", "people"]],
-  },
-] as const;
 
 function Icon({ name, size = 24 }: { name: string; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
@@ -109,29 +52,6 @@ function SectionIcon({ name }: { name: string }) {
 
 export default function Home() {
   return (
-    <div className="cms-shell">
-      <aside className="sidebar">
-        <a className="brand" href="#home" aria-label="Sri Chaitanya Schools home">
-          <Image className="brand-logo" src="/logo_chaitanya.png" alt="Sri Chaitanya logo" width={44} height={44} preload unoptimized />
-          <span className="brand-copy"><strong>Sri Chaitanya</strong><b style={{ color: "#fff" }}>Schools</b></span>
-        </a>
-        <nav className="side-nav" id="side-nav" aria-label="CMS sections">
-          {navigationGroups.map((group, groupIndex) => (
-            <div className="nav-group" key={group.title}>
-              <div className="nav-label"><span>{group.title.toUpperCase()}</span><i/></div>
-              {group.items.map(([label, icon], itemIndex) => {
-                const isHome = groupIndex === 0 && itemIndex === 0;
-                const className = `nav-item${isHome ? " active" : ""}`;
-                const content = <><Icon name={icon} size={22}/><span>{label}</span></>;
-                if (groupIndex === 0 && label === "About Us") return <Link className={className} href="/about" prefetch key={label}>{content}</Link>;
-                return <a className={className} href={isHome ? "#home" : `#${label.toLowerCase().replaceAll(" ", "-")}`} key={label}>{content}</a>;
-              })}
-            </div>
-          ))}
-        </nav>
-        <MenuScrollHint />
-      </aside>
-
       <main className="main-area" id="home">
         <header className="topbar">
           <div className="breadcrumbs"><Icon name="home" size={22}/><span>CMS</span><b>/</b><span>Corporate</span><b>/</b><strong>Home</strong></div>
@@ -165,6 +85,5 @@ export default function Home() {
         </section>
         <footer className="page-footer"><span>© 2025 Sri Chaitanya Schools</span><span>CMS <i/> Corporate</span></footer>
       </main>
-    </div>
   );
 }
