@@ -83,7 +83,7 @@ export default function Home() {
           </div>
           <div className="card-footer"><span>Last updated <strong>Today, 10:42 AM</strong></span><a href="#activity">View activity <span aria-hidden="true">→</span></a></div>
         </section>
-        <footer className="page-footer"><span>© 2025 Sri Chaitanya Schools</span><span>CMS <i/> Corporate</span></footer>
+        <footer className="page-footer"><span>© 2026 Sri Chaitanya Schools</span><span>CMS <i/> Corporate</span></footer>
       </main>
   );
 }
