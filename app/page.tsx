@@ -54,7 +54,7 @@ export default function Home() {
   return (
       <main className="main-area" id="home">
         <header className="topbar">
-          <div className="breadcrumbs"><Icon name="home" size={22}/><span>CMS</span><b>/</b><span>Corporate</span><b>/</b><strong>Home</strong></div>
+          <div className="breadcrumbs"><span>CMS</span><b>/</b><span>Corporate</span><b>/</b><strong>Home</strong></div>
         </header>
         <section className="page-heading">
           <div><p className="eyebrow">CORPORATE WEBSITE</p><h1>Homepage content</h1><p className="subtitle">Manage what visitors see on the school homepage.</p></div>
