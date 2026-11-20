@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import MenuScrollHint from "./menu-scroll-hint";
 import BannerEditorButton from "./banner-editor-button";
 import PopupEditorButton from "./popup-editor-button";
@@ -120,11 +121,10 @@ export default function Home() {
               <div className="nav-label"><span>{group.title.toUpperCase()}</span><i/></div>
               {group.items.map(([label, icon], itemIndex) => {
                 const isHome = groupIndex === 0 && itemIndex === 0;
-                return (
-                  <a className={`nav-item${isHome ? " active" : ""}`} href={isHome ? "#home" : groupIndex === 0 && label === "About Us" ? "/about" : `#${label.toLowerCase().replaceAll(" ", "-")}`} key={label}>
-                    <Icon name={icon} size={22}/><span>{label}</span>
-                  </a>
-                );
+                const className = `nav-item${isHome ? " active" : ""}`;
+                const content = <><Icon name={icon} size={22}/><span>{label}</span></>;
+                if (groupIndex === 0 && label === "About Us") return <Link className={className} href="/about" prefetch key={label}>{content}</Link>;
+                return <a className={className} href={isHome ? "#home" : `#${label.toLowerCase().replaceAll(" ", "-")}`} key={label}>{content}</a>;
               })}
             </div>
           ))}

@@ -5,7 +5,11 @@ import Image from "next/image";
 import { useState, type ChangeEvent } from "react";
 import MenuScrollHint from "../menu-scroll-hint";
 
-const corporateMenu = ["Home", "About Us", "Pre-Primary", "Primary", "High School", "Diversity", "Student Life", "Achievements", "Facilities", "Uniforms", "Gallery", "Admissions", "News & Events", "Magazine", "FAQs", "Admission Enquiry Section", "Privacy Policy", "Terms & Conditions", "Careers"];
+const navigationGroups = [
+  { title: "Corporate", items: ["Home", "About Us", "Pre-Primary", "Primary", "High School", "Diversity", "Student Life", "Achievements", "Facilities", "Uniforms", "Gallery", "Admissions", "News & Events", "Magazine", "FAQs", "Admission Enquiry Section", "Privacy Policy", "Terms & Conditions", "Careers"] },
+  { title: "Branch", items: ["Home", "About Us", "Pre-Primary", "Primary", "High School", "Student Life", "Achievements", "Facilities", "Uniforms", "Gallery", "Admissions", "News & Events", "Magazine", "FAQs", "Admission Enquiry Section", "Privacy Policy", "Terms & Conditions", "Careers"] },
+  { title: "Careers Application", items: ["Applications"] },
+];
 const aboutSections = ["Banner", "Who We Are", "Vision & Mission", "Management", "Our Journey", "Diversity"] as const;
 type AboutSection = string;
 type SectionContent = { eyebrow: string; heading: string; highlight: string; description: string; body: string; vision: string; values: string; growth: string; imageName: string; image: string; barLinks?: { label: string; url: string }[] };
@@ -23,11 +27,14 @@ function MenuIcon({ label }: { label: string }) {
   const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   if (label === "Home") return <svg {...common}><path d="m3 10 9-7 9 7M5 9v11h14V9m-9 11v-7h4v7"/></svg>;
   if (label === "About Us" || label === "FAQs" || label.startsWith("Privacy") || label.startsWith("Terms")) return <svg {...common}><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg>;
+  if (label === "High School") return <svg {...common}><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v6c4 3 8 3 12 0v-6m4-2v7"/></svg>;
+  if (label === "Student Life") return <svg {...common}><path d="M20 4C10 4 5 8 5 15c0 3 2 5 5 5 7 0 10-6 10-16Z"/><path d="M3 21 14 10"/></svg>;
+  if (label === "Admissions") return <svg {...common}><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M9 4V2h6v2m-8 6 2 2 4-4m-4 8h7"/></svg>;
   if (label.includes("Facilities")) return <svg {...common}><path d="M4 21V6l8-3 8 3v15M2 21h20M8 9h.01M12 9h.01M16 9h.01M8 13h.01M12 13h.01M16 13h.01"/></svg>;
   if (label.includes("Gallery")) return <svg {...common}><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>;
   if (label.includes("Events")) return <svg {...common}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>;
   if (label.includes("Achievements")) return <svg {...common}><path d="M8 21h8m-4-4v4M7 4h10v6a5 5 0 0 1-10 0zM7 7H4v2a4 4 0 0 0 4 4m9-6h3v2a4 4 0 0 1-4 4"/></svg>;
-  if (label.includes("Student") || label.includes("Careers") || label.includes("Enquiry") || label === "Diversity") return <svg {...common}><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20v-1a6 6 0 0 1 12 0v1m2-6a5 5 0 0 1 4 5v1"/></svg>;
+  if (label === "Pre-Primary" || label.includes("Student") || label.includes("Careers") || label.includes("Enquiry") || label === "Diversity" || label === "Applications") return <svg {...common}><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 20v-1a6 6 0 0 1 12 0v1m2-6a5 5 0 0 1 4 5v1"/></svg>;
   if (label.includes("Uniform")) return <svg {...common}><path d="m8 4 4 2 4-2 5 4-3 4-2-1v9H8v-9l-2 1-3-4z"/></svg>;
   return <svg {...common}><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22m5-14h7m-7 4h7"/></svg>;
 }
@@ -50,7 +57,7 @@ export default function AboutContentPage() {
   return <div className="cms-shell">
     <aside className="sidebar">
       <Link className="brand" href="/" aria-label="Sri Chaitanya Schools home"><Image className="brand-logo" src="/logo_chaitanya.png" alt="Sri Chaitanya logo" width={44} height={44} preload unoptimized/><span className="brand-copy"><strong>Sri Chaitanya</strong><b style={{ color: "#fff" }}>Schools</b></span></Link>
-      <nav className="side-nav" aria-label="CMS sections"><div className="nav-group"><div className="nav-label"><span>CORPORATE</span><i/></div>{corporateMenu.map((label) => <Link key={label} className={`nav-item${label === "About Us" ? " active" : ""}`} href={label === "Home" ? "/" : label === "About Us" ? "/about" : `/#${label.toLowerCase().replaceAll(" ", "-")}`}><MenuIcon label={label}/><span>{label}</span></Link>)}</div></nav>
+      <nav className="side-nav" aria-label="CMS sections">{navigationGroups.map((group) => <div className="nav-group" key={group.title}><div className="nav-label"><span>{group.title.toUpperCase()}</span><i/></div>{group.items.map((label, index) => <Link key={`${group.title}-${label}-${index}`} className={`nav-item${group.title === "Corporate" && label === "About Us" ? " active" : ""}`} href={label === "Home" ? "/" : label === "About Us" ? "/about" : `/#${label.toLowerCase().replaceAll(" ", "-")}`}><MenuIcon label={label}/><span>{label}</span></Link>)}</div>)}</nav>
       <MenuScrollHint />
     </aside>
     <main className="main-area about-content-page">
